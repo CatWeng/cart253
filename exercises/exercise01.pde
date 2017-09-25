@@ -1,22 +1,20 @@
-//This code creates a red ball on a pink background which 'bounces' off the walls.
-//The background and ball outline are pink .
-//As the ball travels it leaves a red trail.
-//Whenever the mouse comes into contact with the ball it changes to blue.
-//Whenever the mouse is clicked, the screen is cleared.
+//CHANGED Removed all the 'final's so the values can be changed
+int G_Val;
+int B_Val;
+//CHANGED Added two values here to change the green and blue values of the ball
 
-//'final' makes it so these values cannot be changed within the program.
-
-final int CIRCLE_SPEED = 7;
+int CIRCLE_SPEED = 7;
 //Ball movement speed variable
-final color NO_CLICK_FILL_COLOR = color(250, 100, 100);
+//color NO_CLICK_FILL_COLOR = color(0, G_Val, B_Val);
 //Default ball colour
-final color CLICK_FILL_COLOR = color(100, 100, 250);
+//CHANGED because colour will not work with a variable within a variable
+ color CLICK_FILL_COLOR = color(255, 255, 255);
 //Ball colour on mouse-over
-final color BACKGROUND_COLOR = color(250, 150, 150);
+color BACKGROUND_COLOR = color(250, 150, 150);
 //Pink BG colour
-final color STROKE_COLOR = color(250, 150, 150);
+color STROKE_COLOR = color(250, 150, 150);
 //Circle outline color, same as BG
-final int CIRCLE_SIZE = 50;
+int CIRCLE_SIZE = 50;
 //Ball size variable
 
 int circleX;
@@ -29,32 +27,42 @@ int circleVY;
 //Integer for ball Y velocity
 
 void setup() {
-  size(640, 480);
+  size(765, 510);
+  //CHANGED size to multiples of 255 for easier colour changing
   circleX = width/2;
   circleY = height/2;
   //These two values make it so the ball always starts off in the middle
   circleVX = CIRCLE_SPEED;
   circleVY = CIRCLE_SPEED;
-  stroke(STROKE_COLOR);
+  noStroke();
+  //stroke(STROKE_COLOR);
   //Set ball outline
-  fill(NO_CLICK_FILL_COLOR);
+  //CHANGED Removed stroke for a nicer visual effect
+  fill(0, G_Val, B_Val);
   //Set ball default colour
-  background(BACKGROUND_COLOR);
+  background(#FFFFFF);
   //Set background colour
 }
 
 void draw() {
+    G_Val = mouseX/3;
+    B_Val = mouseY/2;
+ //Makes sure the value is from 0-255 so it can change the ball's colour properly
+    CIRCLE_SIZE = ((circleX + circleY)/8)+5;
+ //Changes the circle's size relative to its position. 
+ //Divided by 8 and +5 To prevent it from getting too big or small
     if (dist(mouseX, mouseY, circleX, circleY) < CIRCLE_SIZE/2) {
     fill(CLICK_FILL_COLOR);
-  //If mouse is within the designated space the the ball turns blue.
+  //If mouse is within the designated space the the ball turns white.
   //Designated space is the ball's center position(circleX, circleY)
   //Circle_size/2 gives the ball's radius, the area that forms the visible ball.
   //So if mouse is within 25px of the ball's position it will turn blue.
   }
   else {
-    fill(NO_CLICK_FILL_COLOR);
-  //If mouse is not detected within the ball's radius it stays the default colour, red.
+    fill(0, G_Val, B_Val);
+  //If mouse is not detected within the ball's radius it stays the default colour.
   }
+  
   ellipse(circleX, circleY, CIRCLE_SIZE, CIRCLE_SIZE);
   //Draws the ball traveling across the sketch, size set to 50
   circleX += circleVX;
@@ -74,6 +82,7 @@ void draw() {
 }
 
 void mousePressed() {
-  background(BACKGROUND_COLOR);
+    background(random(255),random(255),random(255));
 //On click 'clear' the sketch to background colour
+//CHANGED so background colour is totally random
 }
