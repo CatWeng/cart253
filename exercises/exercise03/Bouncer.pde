@@ -36,11 +36,9 @@ class Bouncer {
    if (x - size/2 < 0 || x + size/2 > width) {
     vx = -vx; 
    }
-   
    if (y - size/2 < 0 || y + size/2 > height) {
      vy = -vy;
    }
-   
    x = constrain(x,size/2,width-size/2);
    y = constrain(y,size/2,height-size/2);
  }
@@ -53,6 +51,18 @@ class Bouncer {
      fillColor = defaultColor;
    }
  }
+ //CHANGED
+ //When the mouse is clicked, this sets the position of the ball to a random
+ //place as well as increasing the movement speed.
+  void mouseClicked(){
+   if (mousePressed == true){
+     x = (int) random(0, width);
+     y = (int) random(0, width);
+     background(backgroundColor);
+     vx=vx+1;
+     vy=vy+1;
+   }
+ }
 
 //Keeps drawing the ball so it leaves a trail
  void draw() {
@@ -60,4 +70,5 @@ class Bouncer {
    fill(fillColor);
    ellipse(x,y,size,size);
  }
-}
+  
+ }

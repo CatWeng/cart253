@@ -6,6 +6,7 @@
 color backgroundColor = color(200,150,150);
 Bouncer bouncer;
 Bouncer bouncer2;
+RandomMover mover1;
 
 //Creates 2 'bouncers', one blue and red, that start off in the middle and move out 
 //diagonally down and outwards. Opacity is set to half and speed is slow. 
@@ -14,11 +15,19 @@ void setup() {
   background(backgroundColor);
   bouncer = new Bouncer(width/2,height/2,2,2,50,color(150,0,0,50),color(255,0,0,50));
   bouncer2 = new Bouncer(width/2,height/2,-2,2,50,color(0,0,150,50),color(0,0,255,50));
+  mover1 = new RandomMover(width/2,height/2,5,5,30,color(255,255,255,50));
 }
 //Calls the bouncer functions
+//CHANGED so clicking calls the mouseClick function
+//Explanation in 'Bouncer' class
 void draw() {
   bouncer.update();
   bouncer2.update();
   bouncer.draw();
   bouncer2.draw();
+  mover1.draw();
+  bouncer.mouseClicked();
+  bouncer2.mouseClicked();
+  mover1.update();
+  mover1.randomMove();
 }
