@@ -9,6 +9,8 @@ class Bouncer {
  color defaultColor;
  color hoverColor;
  
+ //Sets variables for 'bouncer' so it multiple can be created with different starting location,
+ //movement speed, direction, size and colors
  Bouncer(int tempX, int tempY, int tempVX, int tempVY, int tempSize, color tempDefaultColor, color tempHoverColor) {
    x = tempX;
    y = tempY;
@@ -20,6 +22,8 @@ class Bouncer {
    fillColor = defaultColor;
  }
  
+ //Tells the progrma to keep checking if the ball needs to bounce or change color
+ //and what direction the ball should be moving towards
  void update() {
    x += vx;
    y += vy;
@@ -28,6 +32,8 @@ class Bouncer {
    handleMouse();
  }
  
+ //Detects if the coordinates of the edges of the ball are in contact with
+ //the walls. When the ball comes into contact with any wall, it reverses the direction.
  void handleBounce() {
    if (x - size/2 < 0 || x + size/2 > width) {
     vx = -vx; 
@@ -41,6 +47,7 @@ class Bouncer {
    y = constrain(y,size/2,height-size/2);
  }
  
+  //Detects if the mouse is touching the ball so it can change colour.
  void handleMouse() {
    if (dist(mouseX,mouseY,x,y) < size/2) {
     fillColor = hoverColor; 
@@ -50,6 +57,7 @@ class Bouncer {
    }
  }
  
+ //Keeps drawing the ball which allows it to leave a trail
  void draw() {
    noStroke();
    fill(fillColor);
