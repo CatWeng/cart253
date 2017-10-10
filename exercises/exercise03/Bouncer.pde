@@ -32,17 +32,21 @@ class Bouncer {
    handleMouse();
  }
  
+//CHANGED
  //Detects if the coordinates of the edges of the ball are in contact with
- //the walls. When the ball comes into contact with any wall, it reverses the direction.
+ //the walls. When the ball comes into contact with either the left or right
+ //wall then it wraps around to the other side. If it touches top or bottom
+ //it keeps bouncing.
  void handleBounce() {
-   if (x - size/2 < 0 || x + size/2 > width) {
-    vx = -vx; 
+   if ( x - size/2 <= 0) {
+    x = width-(size/2+1); 
    }
-   
+   if ( x + size/2 >= width) {
+    x = 30;
+   }
    if (y - size/2 < 0 || y + size/2 > height) {
-     vy = -vy;
+    vy = -vy;
    }
-   
    x = constrain(x,size/2,width-size/2);
    y = constrain(y,size/2,height-size/2);
  }
