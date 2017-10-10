@@ -51,6 +51,19 @@ class Bouncer {
    y = constrain(y,size/2,height-size/2);
  }
  
+  //CHANGED
+ //When the mouse is clicked, this sets the position of the ball to a random
+ //place as well as increasing the movement speed.
+  void mouseClicked(){
+   if (mousePressed == true){
+     x = (int) random(0, width);
+     y = (int) random(0, width);
+     background(backgroundColor);
+     vx=vx+1;
+     vy=vy+1;
+   }
+ }
+ 
   //Detects if the mouse is touching the ball so it can change colour.
  void handleMouse() {
    if (dist(mouseX,mouseY,x,y) < size/2) {

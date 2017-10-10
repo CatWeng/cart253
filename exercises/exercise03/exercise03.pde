@@ -16,9 +16,12 @@ void setup() {
   bouncer2 = new Bouncer(width/2,height/2,-2,2,50,color(0,0,150,50),color(0,0,255,50));
 }
 
+//Calls the bouncer functions
 void draw() {
   bouncer.update();
   bouncer2.update();
   bouncer.draw();
   bouncer2.draw();
+  bouncer.mouseClicked();
+  bouncer2.mouseClicked();
 }
