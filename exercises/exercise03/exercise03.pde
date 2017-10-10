@@ -21,7 +21,7 @@ void setup() {
 //CHANGED so clicking calls the mouseClick function
 //Explanation in 'Bouncer' class
 void draw() {
-  bouncer.update();
+ bouncer.update();
   bouncer2.update();
   bouncer.draw();
   bouncer2.draw();
