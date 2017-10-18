@@ -4,12 +4,13 @@
 // Allows to people to bounce a ball back and forth between
 // two paddles that they control.
 //
-// No scoring. (Yet!)
-// No score display. (Yet!)
-// Pretty ugly. (Now!)
-// Only two paddles. (So far!)
+//This version has been changed to 'Claustrophobia Pong'.
+//Two claustrophobic players are in boxes that will shrink whenever they lose a point.
+//As the boxes shrink, the players become scared and start shivering.
+//The smaller the box, the more the player shivers until eventually (at 10 points)
+//The box becomes too small to continue and the player who has reached it first loses.
 
-// Global variables for the paddles, the ball, the background boxes and the end screen.
+// Global variables for the paddles, the ball and the end screen.
 Paddle leftPaddle;
 Paddle rightPaddle;
 Ball ball;
@@ -21,26 +22,32 @@ int PADDLE_INSET = 8;
 // The background colour during play (black)
 color backgroundColor = color(0);
 
+// Added a background image for the void the players are scared of.
+PImage img;
 
 // setup()
-//
-// Sets the size and creates the paddles and ball
+// Sets the size and creates the paddles, ball and end screen
+// Also sets the background image 
 
 void setup() {
-  // Set the size
-  size(640, 480);
+
+  size(860, 400);
+  img = loadImage("void.jpg");
+  img.resize(860, 400);
+  background (img);
 
   // Create the paddles on either side of the screen. 
-  // Use PADDLE_INSET to to position them on x, position them both at centre on y
+  // Use PADDLE_INSET to position them on x, position them both at centre on y
   // Also pass through the two keys used to control 'up' and 'down' respectively
-  // NOTE: On a mac you can run into trouble if you use keys that create that popup of
-  // different accented characters in text editors (so avoid those if you're changing this)
+  // Creates an end game screen determining the winner
+
   leftPaddle = new Paddle(PADDLE_INSET, height/2, 'w', 's');
   rightPaddle = new Paddle(width - PADDLE_INSET, height/2, 'o', 'l');
+  endscreen = new End();
+
 
   // Create the ball at the centre of the screen
   ball = new Ball(width/2, height/2);
-  endscreen = new End();
 }
 
 // draw()
@@ -50,7 +57,7 @@ void setup() {
 
 void draw() {
   // Fill the background each frame so we have animation
-  background(backgroundColor);
+  background(img);
 
   // Update the paddles and ball by calling their update methods
   leftPaddle.update();
@@ -61,17 +68,16 @@ void draw() {
   ball.collide(leftPaddle);
   ball.collide(rightPaddle);
 
-  // Check if the ball has gone off the screen
-  // Changed so it can tell which side the ball exited and add points
+  // Check if the ball has gone off the screen and add points 
   if (ball.x + ball.SIZE/2 <0||ball.x - ball.SIZE/2 >width) {
     ball.score();
   }
 
-  // Display the paddles and the ball
+  // Display the paddles and ball
   leftPaddle.display();
   rightPaddle.display();
   ball.display();
-  
+
   // Display end screen when necessary
   endscreen.gameover();
 }
