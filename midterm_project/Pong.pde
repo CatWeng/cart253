@@ -34,8 +34,8 @@ void setup() {
   // Also pass through the two keys used to control 'up' and 'down' respectively
   // NOTE: On a mac you can run into trouble if you use keys that create that popup of
   // different accented characters in text editors (so avoid those if you're changing this)
-  leftPaddle = new Paddle(PADDLE_INSET, height/2, '1', 'q');
-  rightPaddle = new Paddle(width - PADDLE_INSET, height/2, '0', 'p');
+  leftPaddle = new Paddle(PADDLE_INSET, height/2, 'w', 's');
+  rightPaddle = new Paddle(width - PADDLE_INSET, height/2, 'o', 'l');
 
   // Create the ball at the centre of the screen
   ball = new Ball(width/2, height/2);
@@ -60,9 +60,9 @@ void draw() {
   ball.collide(rightPaddle);
 
   // Check if the ball has gone off the screen
-  if (ball.isOffScreen()) {
-    // If it has, reset the ball
-    ball.reset();
+  // Changed so it can tell which side the ball exited and add points
+  if (ball.x + ball.SIZE/2 <0||ball.x - ball.SIZE/2 >width) {
+    ball.score();
   }
 
   // Display the paddles and the ball

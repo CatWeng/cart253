@@ -17,7 +17,7 @@ class Paddle {
   int y;
   int vx;
   int vy;
-  
+
   // The fill color of the paddle
   color paddleColor = color(255);
 
@@ -54,29 +54,41 @@ class Paddle {
     // Update position with velocity (to move the paddle)
     x += vx;
     y += vy;
-
-    // Constrain the paddle's y position to be in the window
-    y = constrain(y,0 + HEIGHT/2,height - HEIGHT/2);
+    y = constrain(y, 0 + HEIGHT/2, height - HEIGHT/2);
+    // Added the jitter command that makes the paddle shake as the box closes in
+    jitter();
   }
 
-  // display()
+  // The function making the paddle jitter directly proportional to score.
+  // The higher the points the more 'scared' the paddle is. This makes playing more difficult as the player loses.
+  void jitter() {
+    if (ball.score1 >= 0) { 
+      leftPaddle.y = leftPaddle.y + (int) random(-ball.score1*1.5, ball.score1*1.5);
+    }
+
+    if (ball.score2 >= 0) {
+      rightPaddle.y = rightPaddle.y + (int) random(-ball.score2*1.5, ball.score2*1.5);
+    }
+  }
+
+  // display() UNCHANGED
   //
   // Display the paddle at its location
-  
+
   void display() {
     // Set display properties
     noStroke();
     fill(paddleColor);
     rectMode(CENTER);
-    
+
     // Draw the paddle as a rectangle
     rect(x, y, WIDTH, HEIGHT);
   }
 
-  // keyPressed()
+  // keyPressed() UNCHANGED
   //
   // Called when keyPressed is called in the main program
-  
+
   void keyPressed() {
     // Check if the key is our up key
     if (key == upKey) {
@@ -87,9 +99,17 @@ class Paddle {
       // If so we want a positive y velocity
       vy = SPEED;
     }
+    if (key == upKey) {
+      // If so we want a negative y velocity
+      vy = -SPEED;
+    } // Otherwise check if the key is our down key 
+    else if (key == downKey) {
+      // If so we want a positive y velocity
+      vy = SPEED;
+    }
   }
 
-  // keyReleased()
+  // keyReleased() UNCHANGED
   //
   // Called when keyReleased is called in the main program
 
