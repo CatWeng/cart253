@@ -9,10 +9,11 @@
 // Pretty ugly. (Now!)
 // Only two paddles. (So far!)
 
-// Global variables for the paddles and the ball
+// Global variables for the paddles, the ball, the background boxes and the end screen.
 Paddle leftPaddle;
 Paddle rightPaddle;
 Ball ball;
+End endscreen;
 
 // The distance from the edge of the window a paddle should be
 int PADDLE_INSET = 8;
@@ -39,6 +40,7 @@ void setup() {
 
   // Create the ball at the centre of the screen
   ball = new Ball(width/2, height/2);
+  endscreen = new End();
 }
 
 // draw()
@@ -69,6 +71,9 @@ void draw() {
   leftPaddle.display();
   rightPaddle.display();
   ball.display();
+  
+  // Display end screen when necessary
+  endscreen.gameover();
 }
 
 // keyPressed()
