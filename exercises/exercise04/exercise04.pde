@@ -21,6 +21,9 @@ void setup() {
   frameRate(10);
 
   // QUESTION: What does this for loop do?
+  
+  //Spawns new griddies anywhere inside the grid so they don't exceed screen size.
+  //Keeps spawning them until they reach the 'length' value, 100.
   for (int i = 0; i < griddies.length; i++) {
     int x = floor(random(0, width/gridSize));
     int y = floor(random(0, height/gridSize));
@@ -44,8 +47,13 @@ void draw() {
     // Now go through all the griddies a second time...
     for (int j = 0; j < griddies.length; j++) {
       // QUESTION: What is this if-statement for?
+      
+      //This if-statement checks on the second run through to see if any of the griddies
+      //have overlapped with each other. 
       if (j != i) {
         // QUESTION: What does this line check?
+        
+        //In the case that the griddies have overlapped, this adjusts their energy levels accordingly.
         griddies[i].collide(griddies[j]);
       }
     }
