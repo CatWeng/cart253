@@ -9,7 +9,8 @@ class Enemy {
   // Limits for energy level and gains/losses
   int maxEnergy = 255;
   int moveEnergy = -1;
-  int collideEnergy = 10;
+  int collideEnergy = -10;
+  int eatEnergy = 20;
 
   // Position, size, energy, and fill color
   int x;
@@ -97,6 +98,21 @@ class Enemy {
       // Increase this Enemy's energy
       energy += collideEnergy;
       // Constrain the energy level to be within bounds
+      energy = constrain(energy, 0, maxEnergy);
+    }
+  }
+  
+  void eat(Griddie griddie) {
+   
+    if (energy == 0 || griddie.energy == 0) {
+      return;
+    }
+
+    if (x == griddie.x && y == griddie.y) {
+
+      energy += eatEnergy;
+      griddie.energy -= eatEnergy;
+
       energy = constrain(energy, 0, maxEnergy);
     }
   }

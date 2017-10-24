@@ -79,8 +79,8 @@ void draw() {
     for (int j = 0; j < enemies.length; j++) {
 
       if (j != i) {
-
         enemies[i].collide(enemies[j]);
+        enemies[i].eat(griddies[j]);
       }
     }
 
