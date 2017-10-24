@@ -101,6 +101,14 @@ class Griddie {
       // Constrain the energy level to be within bounds
       energy = constrain(energy,0,maxEnergy);
     }
+    
+    if (x == other.x && y == other.y) {
+      // Increase this Griddie's energy
+      energy += collideEnergy;
+      // Constrain the energy level to be within bounds
+      energy = constrain(energy,0,maxEnergy);
+    }
+    
   }
 
   // display()

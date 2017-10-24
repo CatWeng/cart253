@@ -1,3 +1,4 @@
+
 // Griddies
 // by Pippin Barr
 // MODIFIED BY: 
@@ -10,6 +11,7 @@
 int gridSize = 20;
 // An array storing all the griddies
 Griddie[] griddies = new Griddie[100];
+Enemy[] enemies = new Enemy[20];
 
 // setup()
 //
@@ -21,13 +23,19 @@ void setup() {
   frameRate(10);
 
   // QUESTION: What does this for loop do?
-  
+
   //Spawns new griddies anywhere inside the grid so they don't exceed screen size.
   //Keeps spawning them until they reach the 'length' value, 100.
   for (int i = 0; i < griddies.length; i++) {
     int x = floor(random(0, width/gridSize));
     int y = floor(random(0, height/gridSize));
     griddies[i] = new Griddie(x * gridSize, y * gridSize, gridSize);
+  }
+
+  for (int i = 0; i < enemies.length; i++) {
+    int x = floor(random(0, width/gridSize));
+    int y = floor(random(0, height/gridSize));
+    enemies[i] = new Enemy(x * gridSize, y * gridSize, gridSize);
   }
 }
 
@@ -47,18 +55,36 @@ void draw() {
     // Now go through all the griddies a second time...
     for (int j = 0; j < griddies.length; j++) {
       // QUESTION: What is this if-statement for?
-      
+
       //This if-statement checks on the second run through to see if any of the griddies
       //have overlapped with each other. 
       if (j != i) {
         // QUESTION: What does this line check?
-        
+
         //In the case that the griddies have overlapped, this adjusts their energy levels accordingly.
         griddies[i].collide(griddies[j]);
       }
     }
-    
+
     // Display the griddies
     griddies[i].display();
+  }
+  
+  for (int i = 0; i < enemies.length; i++) {
+
+    // Update the enemies
+    enemies[i].update();
+
+    // Now go through all the enemies a second time...
+    for (int j = 0; j < enemies.length; j++) {
+
+      if (j != i) {
+
+        enemies[i].collide(enemies[j]);
+      }
+    }
+
+    // Display the griddies
+    enemies[i].display();
   }
 }
