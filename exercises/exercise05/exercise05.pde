@@ -6,6 +6,8 @@ float thetaY = 0.0;
 float thetaZ = 0.0;
 float speed = -0.01;
 
+boolean mousePress;
+
 PShape globe;
 PShape moon1;
 
@@ -38,6 +40,29 @@ void draw() {
   
    // Sets the speed of the rotation
   thetaY += speed;
-  
-  
+ 
+  // If the mouse is held down, increase rotation speed in one direction
+  // If it is not, this tells the planets to spin in the other direction
+  if (mousePress == true) {
+    speed = speed+0.0001;
+  }
+  if (mousePress == false) {
+    speed = speed-0.0001;
+  }
+}
+
+ // Boolean to check for whether the mouse button is held down or not
+void mousePressed() {
+  mousePress = true;
+}
+void mouseReleased() {
+  mousePress = false;
+}
+
+// When the mouse is clicked, sets the rotation to a random angle 
+// This changes the viewing angle of the planets 
+void mouseClicked() {
+  thetaX = random(-1, 1);
+  thetaY = random(-1, 1);
+  thetaZ = random(-1, 1);
 }
