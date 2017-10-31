@@ -10,6 +10,9 @@ boolean mousePress;
 
 PShape globe;
 PShape moon1;
+PShape moon2;
+PShape moon3;
+PShape moon4;
 
 void setup() {
   // Set screen size to 1000 by 700 and allow for 3D shaped to be drawn
@@ -18,17 +21,18 @@ void setup() {
 
   // Create spheres for all the planets, and sets size. 
   globe = createShape(SPHERE, 100); 
-
   moon1 = createShape(SPHERE, 25); 
-  
+  moon2 = createShape(SPHERE, 50); 
+  moon3 = createShape(SPHERE, 70); 
+  moon4 = createShape(SPHERE, 100);
 }
 
 void draw() {
   // Sets background to dark blue and adds a mild static effect to give the impression of stars
   background(#042b6b);
-  
-  // Creates a planet with a moon that follows its rotation
-  // The moon also has its own separate rotation
+
+  // Creates a planet with several moons that follows its rotation
+  // The moons also have their own unique rotation
   translate(width/2, height/2);
   rotateX(thetaX);
   rotateY(thetaY);
@@ -37,10 +41,21 @@ void draw() {
   translate(100, 100, 50);
   shape(moon1);
   moon1.rotateY(0.05);
-  
-   // Sets the speed of the rotation
+    translate(-700, 100, -100);
+  rotateZ(thetaZ+0.3);
+  shape(moon2);
+  moon2.rotateY(0.1);
+  translate(600, -800, 700);
+  rotateZ(thetaZ-0.2);
+  shape(moon3);
+  moon3.rotateX(0.1); 
+  translate(-2500, 100, -200);
+  shape(moon4);
+  moon4.rotateZ(0.5);
+
+  // Sets the speed of the rotation
   thetaY += speed;
- 
+
   // If the mouse is held down, increase rotation speed in one direction
   // If it is not, this tells the planets to spin in the other direction
   if (mousePress == true) {
@@ -51,7 +66,7 @@ void draw() {
   }
 }
 
- // Boolean to check for whether the mouse button is held down or not
+// Boolean to check for whether the mouse button is held down or not
 void mousePressed() {
   mousePress = true;
 }
