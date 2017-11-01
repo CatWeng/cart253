@@ -28,6 +28,9 @@ class Bouncer {
   // The default fill colour of the Bouncer
   color defaultColor;
   
+  // Add an image instead of plain balls
+  PImage img;
+
   // Bouncer(tempX,tempY,tempVX,tempVY,tempSize,tempDefaultColor)
   //
   // Creates a Bouncer with the provided values by remembering them.
@@ -84,8 +87,11 @@ class Bouncer {
     noStroke();
     fill(fillColor);
     follow();
-    ellipse(x, y, size, size);
-
+    // ellipse(x, y, size, size);
+    
+    // Draws an image of a hummingbird silhouette instead of the ellipses
+    img = loadImage("bird.png");
+    image(img, x, y, size, size);
   }
 
   // Code taken from the Processing 'Easing' example
