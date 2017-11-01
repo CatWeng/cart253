@@ -6,6 +6,7 @@
 
 class Bouncer {
 
+  // Varaiables for following the brightest pixel
   float floatX;
   float floatY;
   float easing = 0.05;
@@ -26,7 +27,7 @@ class Bouncer {
 
   // The default fill colour of the Bouncer
   color defaultColor;
-
+  
   // Bouncer(tempX,tempY,tempVX,tempVY,tempSize,tempDefaultColor)
   //
   // Creates a Bouncer with the provided values by remembering them.
@@ -82,19 +83,25 @@ class Bouncer {
   void display() {
     noStroke();
     fill(fillColor);
-    seek();
+    follow();
     ellipse(x, y, size, size);
-  }
-  
-  void seek() {
-        if (x <= (brightestPixel.x-5) || x <= (brightestPixel.x+5) && y <= (brightestPixel.y-5) || (y <= brightestPixel.y+5) ) {
-    float targetX = brightestPixel.x;
-    float dx = targetX - x;
-    x += dx * easing;
 
-    float targetY = brightestPixel.y;
-    float dy = targetY - y;
-    y += dy * easing;
-        }
   }
+
+  // Code taken from the Processing 'Easing' example
+  // When the bouncers comes close to the brightest pixel in the image, they will hover around it
+  // If the brightest pixel moves around and the bouncer is out of the follow range
+  // It will go back to bouncing normally 
+  void follow() {
+    if (x <= (brightestPixel.x-5) || x <= (brightestPixel.x+5) && y <= (brightestPixel.y-5) || (y <= brightestPixel.y+5) ) {
+      float targetX = brightestPixel.x;
+      float dx = targetX - x;
+      x += dx * easing;
+
+      float targetY = brightestPixel.y;
+      float dy = targetY - y;
+      y += dy * easing;
+    }
+  }
+
 }
