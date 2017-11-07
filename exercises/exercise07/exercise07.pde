@@ -1,12 +1,12 @@
-// On mouseclick, a new bouncer is created in the sketch\
+// On mouseclick, a new bouncer is created in the sketch
 // Code taken from here https://forum.processing.org/one/topic/create-new-object-with-mouse-click.html
+// All the bouncers will now play a random sound when they bounce into the walls.
 
 //Initializes a list of bouncers so more can be created during the sketch
 final static ArrayList<Bouncer> bouncers = new ArrayList();
 
 // Code taken from slides
 import processing.sound.*;
-
 // Somewhere to store our 5 sound files
 SoundFile[] tones = new SoundFile[5];
 // The number of frames per beat of music
@@ -33,12 +33,9 @@ void draw() {
   background(255);
   for (Bouncer g : bouncers)  g.update();
   // Code taken from slides
-  if (frameCount % framesPerBeat == 0) {
-    int randomIndex = floor(random(0, tones.length));
-    // Play the sound
-    tones[randomIndex].play();
-  }
+  //if (frameCount % framesPerBeat == 0) { 
 }
+
   // Pick a random index in the array
   // When mouse is pressed a new bouncer is created with
   // a random colour, size, direction, location and movement speed
