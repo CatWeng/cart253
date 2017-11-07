@@ -9,6 +9,7 @@ final static ArrayList<Bouncer> bouncers = new ArrayList();
 import processing.sound.*;
 // Somewhere to store our 5 sound files
 SoundFile[] tones = new SoundFile[5];
+SoundFile file;
 // The number of frames per beat of music
 int framesPerBeat = 15;
 
@@ -25,6 +26,8 @@ void setup() {
     // We can use the i variable to work out which filename to use!
     tones[i] = new SoundFile(this, "tone0" + (i+1) + ".wav");
   }
+  file = new SoundFile(this, "kick.wav");
+  
 }
 
 // Draw

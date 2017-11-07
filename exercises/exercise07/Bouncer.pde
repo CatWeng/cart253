@@ -1,3 +1,6 @@
+// This class creates a bouncing ball that will play a  random sound
+// Whenever it bounces into one of the walls.
+
 class Bouncer {
 
   // Varaiables for following the brightest pixel
@@ -21,9 +24,14 @@ class Bouncer {
 
   // The default fill colour of the Bouncer
   color defaultColor;
-  
+
   // Add an image instead of plain balls
   PImage img;
+
+  //Create boolean to detect if mouse is hovering over a bouncer
+  boolean hover=false;
+  //Int to make sound pause and play
+  int currentRate = 1;
 
   // Bouncer(tempX,tempY,tempVX,tempVY,tempSize,tempDefaultColor)
   //
@@ -50,6 +58,7 @@ class Bouncer {
 
     handleBounce();
     display();
+    hover();
   }
 
   // handleBounce()
@@ -62,12 +71,18 @@ class Bouncer {
     if (x - size/2 < 0 || x + size/2 > width) {
       // Bounce on the x-axis
       vx = -vx;
+      int randomIndex = floor(random(0, tones.length));
+      // Play the sound
+      tones[randomIndex].play();
     }
 
     // Check the top and bottom
     if (y - size/2 < 0 || y + size/2 > height) {
       // Bounce on the y-axis
       vy = -vy;
+      int randomIndex = floor(random(0, tones.length));
+      // Play the sound
+      tones[randomIndex].play();
     }
 
     // Make sure the Bouncer isn't off the edge
@@ -84,4 +99,19 @@ class Bouncer {
     ellipse( x, y, size, size);
   }
 
+  // When a bouncer is hovered over, the kick sound file plays 
+  void hover() {
+    // Detects if mouse is inside area of the bouncer
+    if (mouseX <= x+size/2 && mouseX >= x-size/2 && mouseY <= y+size/2 && mouseY >= y-size/2) {
+      // If hover is false then set it to true while inside the area so sound plays just once 
+      if (!hover) {
+        file.play();
+        hover = true;
+      }
+     // If outside area, sets hover to false so sound stops playing 
+    } else {
+      hover = false;
+      file.stop();
+    }
+  }
 }
