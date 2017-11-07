@@ -41,13 +41,15 @@ class Bouncer {
 
   // update()
   //
-  // Adds the Bouncer's current velocity to its position
+  // Adds the Bouncer's current velocity to its position 
   // and checks for bouncing off the walls.
+  // Draws the bouncer in the same void now.
   void update() {
     x += vx;
     y += vy;
 
     handleBounce();
+    display();
   }
 
   // handleBounce()
@@ -75,33 +77,11 @@ class Bouncer {
 
   // display()
   //
-  // Draw an ellipse in the Bouncer's location, with its size
-  // and with its fill
+  // Draw an ellipse in the Bouncer's location, with its size and colour defined 
   void display() {
     noStroke();
     fill(fillColor);
-    //follow();
-    // ellipse(x, y, size, size);
-    
-    // Draws an image of a hummingbird silhouette instead of the ellipses
-    //img = loadImage("bird.png");
     ellipse( x, y, size, size);
   }
-
-  // Code taken from the Processing 'Easing' example
-  // When the bouncers comes close to the brightest pixel in the image, they will hover around it
-  // If the brightest pixel moves around and the bouncer is out of the follow range
-  // It will go back to bouncing normally 
-  //void follow() {
-  //  if (x <= (mouseX-5) || x <= (mouseX+5) && y <= (mouseY-5) || (y <= mouseY+5) ) {
-  //    float targetX = mouseX;
-  //    float dx = targetX - x;
-  //    x += dx * easing;
-
-  //    float targetY = mouseY;
-  //    float dy = targetY - y;
-  //    y += dy * easing;
-  //  }
-  //}
 
 }
