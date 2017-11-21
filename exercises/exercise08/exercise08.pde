@@ -4,8 +4,13 @@ int numChiyo = 500;
 // This variable calls which Chiyos to be drawn by name/number
 int numImages = 35;
 // Set a grid for even Chiyo distribution
+// GridX has to be a multiple of gridWidth for this to work
 int gridX = 20;
 int gridY = 30;
+
+// Set up independable variable for the Chiyo to be found
+int targetX; 
+int targetY;
 // Makes it so the chiyos are only drawn on a portion of the screen
 // Leaves space for an objective bar showing which chiyos to find
 int gridWidth = 500;
@@ -14,12 +19,25 @@ int gridWidth = 500;
 PImage[] images = new PImage[numImages];
 Chiyo[] chiyos = new Chiyo[numChiyo];
 
+// Trying to set up a clickable target
+//Target clickable;
+//PImage target;
+
 // SETUP
 void setup() {
 
   // Set box size and background to white
   size(640, 480);
   background(255);
+  
+  // Trying to set up a clickable target
+  //target = loadImage ("findme1.jpg");
+  
+  targetX = floor(random(0, width/gridX));
+  targetY = floor(random(0, height/gridY));
+  
+  // Trying to set up a clickable target
+  //clickable = new Target (650, 400, 50, target);
 
   // Load all the images by their number/name starting from '0' and up to whatever numImages is
   for (int i = 0; i < images.length; i++) {
@@ -55,11 +73,17 @@ void setup() {
 // DRAW
 void draw() {
   
+  // Trying to set up a clickable target
+  //clickable.display();
+    
   // Takes the information from setup with grid values and image assignments
   // To repeatedly draw the Chiyos up to the value of NumChiyo (500)
   for (int i = 0; i < chiyos.length; i++) {
-
+    
+    // Adds a glitch effect the chiyos (?)
+    i = (int) random (numChiyo);
     // Displays the Chiyos
     chiyos[i].display();
   }
+
 }
