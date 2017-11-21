@@ -22,9 +22,9 @@ void setup() {
   }
   
     for (int i = 0; i < chiyos.length; i++) {
-     int x = floor(random(0, width));
-    int y = floor(random(0, height));
-    chiyos[i] = new Chiyo(x, y, images[i]);
+     int x = floor(random(0, width/gridX));
+    int y = floor(random(0, height/gridY));
+    chiyos[i] = new Chiyo(x*gridX, y*gridY, images[i]);
     x+= gridX;
 }
 }
