@@ -5,6 +5,9 @@ int numImages = 35;
 // Set a grid for even Chiyo distribution
 int gridX = 20;
 int gridY = 30;
+// Makes it so the chiyos are only drawn on a portion of the screen
+// Leaves space for an objective bar showing which chiyos to find
+int gridWidth = 500;
 
 // Set up arrays for the images to run through and chiyos to draw
 PImage[] images = new PImage[numImages];
@@ -20,20 +23,39 @@ void setup() {
   for (int i = 0; i < images.length; i++) {
     images[i] = loadImage(i + ".png" );
   }
-  
-    for (int i = 0; i < chiyos.length; i++) {
-     int x = floor(random(0, width/gridX));
-    int y = floor(random(0, height/gridY));
-    chiyos[i] = new Chiyo(x*gridX, y*gridY, images[i]);
+
+  // Set up variables for Chiyo x,y coordinates and an index number to count them
+  int y = 0;
+  int x = 0;
+  int index = 0;
+
+  for (int i = 0; i < chiyos.length; i++) {
+    chiyos[i] = new Chiyo(x, y, images[index]);
     x+= gridX;
+
+    // Uses modulo to check if the number of chiyos has reached the end 
+    // When it does, resets the x position so they start drawing again from the edge
+    // Also tells the Y position to go one grid value down so it starts drawing from a new line
+    if (i!=0 && (i*gridX) % gridWidth == 0) {
+      y = y+gridY;
+      x = 0;
+    }
+
+    // Tells the index to reset once all the images have been run through
+    // So the images keep loading in a loop
+    if (index == 34) {
+      index = 0;
+    }
+    index+=1;
+  }
 }
-}
+
 
 void draw() {
   // Takes the information from setup with grid values and image assignments
   // To draw all the Chiyos
   for (int i = 0; i < chiyos.length; i++) {
-    
+
     // Displays the Chiyos
     chiyos[i].display();
   }
