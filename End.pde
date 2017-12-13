@@ -22,6 +22,7 @@ class End {
 
   // When the player's points reach 0, the game ends
   // The player is greeted by the words 'GAME OVER' and an angry Chiyo
+  // Also plays the sound of a cat crying
   void lose() {
     scream = loadImage ("scream.png");
     scream.resize(108, 128);
@@ -31,11 +32,13 @@ class End {
       image (endscreen, 0, 0);
       image (scream, width-130, height-150);
       stop();
+      cry.play();
     }
   }
   
   // When the player find all the hidden Chiyos, the game ends
   // The player is greeted by the words 'YOU WIN' and a happy Chiyo in heels
+  // Also plays the sound of a happy cat purring
   void win() {
     leggy = loadImage ("zleggy.png");
     leggy.resize(150, 150);
@@ -45,6 +48,7 @@ class End {
       image (endscreen, 0, 0);
       image (leggy, width-150, height-170);
       stop();
+      purr.play();
     }
   }
   
