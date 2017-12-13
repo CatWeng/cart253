@@ -46,6 +46,10 @@ PImage targetFound2;
 PImage target3;
 PImage targetFound3;
 
+//Variable for background image
+PImage BG;
+
+
 // SETUP
 void setup() {
 
@@ -54,6 +58,10 @@ void setup() {
   background(255);
   textSize(20);
   noStroke();
+  
+  //Loading and resizing background image
+  BG = loadImage ("ChiyoBG.jpg");
+  BG.resize(640, 480);
 
   // Setting up all the clickable target Chiyos
   target = loadImage ("findme.png");
@@ -104,8 +112,8 @@ void setup() {
 
 // DRAW
 void draw() {
-  // Draws background white
-  background(#FFFFFF);
+  // Draws background in
+  background(BG);
   // Draws text black
   fill (0);
   // Writes 'Find me:' above the objective Chiyos and keeps track of score
@@ -128,7 +136,6 @@ void draw() {
     catTarget2.display();
     catIcon3.display();
     catTarget3.display();
-
   }
 }
 
