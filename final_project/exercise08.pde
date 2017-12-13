@@ -3,6 +3,11 @@
 // An objective bar on the right indicates which ones need to be found
 
 // VARIABLES
+
+//Score keeper, limits the number of attempts to find chiyos
+int lives=5;
+//Second score keeper, when player has found all chiyos it triggers a win
+int win=0;
 // This variable sets the number of Chiyos to be drawn on screen
 int numChiyo = 500;
 // This variable calls which Chiyos to be drawn by name/number
@@ -47,6 +52,7 @@ void setup() {
   // Set box size and background to white
   size(640, 480);
   background(255);
+  textSize(20);
   noStroke();
 
   // Setting up all the clickable target Chiyos
@@ -100,6 +106,11 @@ void setup() {
 void draw() {
   // Draws background white
   background(#FFFFFF);
+  // Draws text black
+  fill (0);
+  // Writes 'Find me:' above the objective Chiyos and keeps track of score
+  text("Find me:", width-100, 40);
+  text(lives, width-80, height-40);
 
   // Takes the information from setup with grid values and image assignments
   // To repeatedly draw the Chiyos up to the value of NumChiyo (500)
@@ -121,6 +132,7 @@ void draw() {
   }
 }
 
+// mouseClicked triggers the image change for the Chiyo
 void mouseClicked() {
   catTarget.mouseClicked();
 }
