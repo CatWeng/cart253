@@ -4,6 +4,14 @@
 
 // VARIABLES
 
+// Adding sound library and sound files 
+import processing.sound.*;
+
+SoundFile hiss;
+SoundFile meow;
+SoundFile purr;
+SoundFile cry;
+
 //Score keeper, limits the number of attempts to find chiyos
 int lives=5;
 //Second score keeper, when player has found all chiyos it triggers a win
@@ -46,9 +54,12 @@ PImage targetFound2;
 PImage target3;
 PImage targetFound3;
 
+//Sets up an end screen so tha player can win or lose the game
+End end;
+PImage endscreen;
+
 //Variable for background image
 PImage BG;
-
 
 // SETUP
 void setup() {
@@ -58,10 +69,16 @@ void setup() {
   background(255);
   textSize(20);
   noStroke();
-  
-  //Loading and resizing background image
+
+  // Loading and resizing background image
   BG = loadImage ("ChiyoBG.jpg");
   BG.resize(640, 480);
+  
+  // Loading in sound files
+  meow = new SoundFile(this, "Meow.mp3");
+  hiss = new SoundFile(this, "Hiss.mp3");
+  purr = new SoundFile(this, "Purr.mp3");
+  cry = new SoundFile(this, "Crying.mp3");
 
   // Setting up all the clickable target Chiyos
   target = loadImage ("findme.png");
@@ -78,6 +95,9 @@ void setup() {
   catTarget2 = new Target (width-110, 150, 100, target2);
   catIcon3 = new Target ((int) random(0, gridWidth-targetSize), (int) random(0, height-targetSize), targetSize, target3);
   catTarget3 = new Target (width-110, 230, 100, target3);
+
+  // Sets end screen to cover the whole screen with an image
+  end = new End (0, 0, width, height, endscreen);
 
   // Load all the images by their number/name starting from '0' and up to whatever numImages is
   for (int i = 0; i < images.length; i++) {
@@ -128,15 +148,19 @@ void draw() {
     // i = (int) random (numChiyo);
     // Displays the Chiyos
     chiyos[i].display();
-
-    // Display all the target and objective Chiyos
-    catIcon.display();
-    catTarget.display();
-    catIcon2.display();
-    catTarget2.display();
-    catIcon3.display();
-    catTarget3.display();
   }
+
+  // Display all the target and objective Chiyos
+  catIcon.display();
+  catTarget.display();
+  catIcon2.display();
+  catTarget2.display();
+  catIcon3.display();
+  catTarget3.display();
+
+  // Triggers end when one of the end screen's condition is met
+  end.win();
+  end.lose();
 }
 
 // mouseClicked triggers the image change for the Chiyo
