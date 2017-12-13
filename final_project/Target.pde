@@ -23,19 +23,18 @@ class Target {
     image(img, x, y, size, size);
   }
 
-  // Made 'found' it's own function so more content may be added later
-  void found() {
-    mouseClicked();
-  }
-
-  // Detects if the mouse is clicked within the area of the hidden Chiyo
+   // Detects if the mouse is clicked within the area of the hidden Chiyo
   // If it is, tells the indicator to load the black and white image
   void mouseClicked() {
-    if (mousePressed==true) {
-      if ((mouseX <= (catIcon.x + targetSize) && mouseX >= (catIcon.x)) && 
-        (mouseY <= (catIcon.y + targetSize) && mouseY >= (catIcon.y))) {
-        catTarget.img = targetFound;
-      }
+    if ((mouseX <= (catIcon.x + targetSize) && mouseX >= (catIcon.x)) && 
+      (mouseY <= (catIcon.y + targetSize) && mouseY >= (catIcon.y))) {
+      catTarget.img = targetFound;
+    } else if ((mouseX <= (catIcon2.x + targetSize) && mouseX >= (catIcon2.x)) && 
+      (mouseY <= (catIcon2.y + targetSize) && mouseY >= (catIcon2.y))) {
+      catTarget2.img = targetFound2;
+    } else if ((mouseX <= (catIcon3.x + targetSize) && mouseX >= (catIcon3.x)) && 
+      (mouseY <= (catIcon3.y + targetSize) && mouseY >= (catIcon3.y))) {
+      catTarget3.img = targetFound3;
     }
   }
 }

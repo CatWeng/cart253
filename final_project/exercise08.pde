@@ -13,7 +13,8 @@ int gridX = 20;
 int gridY = 30;
 
 // Set up variable for the Chiyo to be found to adjust difficulty levels
-int targetSize = 50; 
+// 50 is the normal size but it's set tp 80 for easy visibility
+int targetSize = 80; 
 
 // Makes it so the chiyos are only drawn on a portion of the screen
 // Leaves space for an objective bar showing which chiyos to find
@@ -29,8 +30,16 @@ Chiyo[] chiyos = new Chiyo[numChiyo];
 // By a greyscale image
 Target catIcon;
 Target catTarget;
+Target catIcon2;
+Target catTarget2;
+Target catIcon3;
+Target catTarget3;
 PImage target;
 PImage targetFound;
+PImage target2;
+PImage targetFound2;
+PImage target3;
+PImage targetFound3;
 
 // SETUP
 void setup() {
@@ -38,14 +47,23 @@ void setup() {
   // Set box size and background to white
   size(640, 480);
   background(255);
+  noStroke();
 
-  // Trying to set up a clickable target
+  // Setting up all the clickable target Chiyos
   target = loadImage ("findme.png");
   targetFound = loadImage ("found.png");
+  target2 = loadImage ("findme2.png");
+  targetFound2 = loadImage ("found2.png");
+  target3 = loadImage ("findme3.png");
+  targetFound3 = loadImage ("found3.png");
 
-  // catIcon sets up the hidden Chiyo while catTarget sets up the 
+  // catIcon sets up the hidden Chiyo while catTarget sets up the indicator on the side
   catIcon = new Target ((int) random(0, gridWidth-targetSize), (int) random(0, height-targetSize), targetSize, target);
   catTarget = new Target (width-110, 50, 100, target);
+  catIcon2 = new Target ((int) random(0, gridWidth-targetSize), (int) random(0, height-targetSize), targetSize, target2);
+  catTarget2 = new Target (width-110, 150, 100, target2);
+  catIcon3 = new Target ((int) random(0, gridWidth-targetSize), (int) random(0, height-targetSize), targetSize, target3);
+  catTarget3 = new Target (width-110, 230, 100, target3);
 
   // Load all the images by their number/name starting from '0' and up to whatever numImages is
   for (int i = 0; i < images.length; i++) {
@@ -80,6 +98,8 @@ void setup() {
 
 // DRAW
 void draw() {
+  // Draws background white
+  background(#FFFFFF);
 
   // Takes the information from setup with grid values and image assignments
   // To repeatedly draw the Chiyos up to the value of NumChiyo (500)
@@ -90,11 +110,17 @@ void draw() {
     // Displays the Chiyos
     chiyos[i].display();
 
-    // Set up a clickable target Chiyo
+    // Display all the target and objective Chiyos
     catIcon.display();
     catTarget.display();
-    
-    // When the Chiyo is found, clicking it overlaps the image on the right with a black/white one. 
-    catTarget.found();
+    catIcon2.display();
+    catTarget2.display();
+    catIcon3.display();
+    catTarget3.display();
+
   }
+}
+
+void mouseClicked() {
+  catTarget.mouseClicked();
 }
