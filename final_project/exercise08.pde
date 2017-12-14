@@ -9,11 +9,12 @@ import processing.sound.*;
 
 SoundFile hiss;
 SoundFile meow;
+SoundFile meow2;
 SoundFile purr;
 SoundFile cry;
 
 //Score keeper, limits the number of attempts to find chiyos
-int lives=5;
+int lives=4;
 //Second score keeper, when player has found all chiyos it triggers a win
 int win=0;
 // These variables set the number of Chiyos to be drawn on screen
@@ -39,6 +40,8 @@ PImage[] images = new PImage[numImages];
 Chiyo[] chiyos = new Chiyo[numChiyo];
 // Set up flies
 Fly[] fly = new Fly[numFly]; 
+//Set up Gift chiyo
+Gift gift;
 
 // Sets up two chiyos, one on the side to act as an objective
 // And one hidden with the rest of the Chiyos to be found
@@ -61,20 +64,21 @@ PImage targetFound3;
 End end;
 PImage endscreen;
 
-// Variable for background image
+// Variable for images
 PImage BG;
-
-// Variable for the fly images
 PImage flyImg;
+PImage giftImg;
+
 
 // SETUP
 void setup() {
 
-  // Set box size and background to white
+  // Set box size and background to white, text size and a frame rate as a timer
   size(640, 480);
   background(255);
   textSize(20);
   noStroke();
+  frameRate(20);
 
   // Loading and resizing background image
   BG = loadImage ("ChiyoBG.jpg");
@@ -85,6 +89,7 @@ void setup() {
   hiss = new SoundFile(this, "Hiss.mp3");
   purr = new SoundFile(this, "Purr.mp3");
   cry = new SoundFile(this, "Crying.mp3");
+  meow2 = new SoundFile(this, "Meow2.mp3");
 
   // Setting up all the clickable target Chiyos
   target = loadImage ("findme.png");
@@ -108,6 +113,10 @@ void setup() {
     flyImg = loadImage ((int)random(0, numImages)+".png");
     fly[i] = new Fly(-200, -200, 3, 3, images[int(random(0, images.length))]);
   }
+  
+  // Generates a gift Chiyo 
+  giftImg = loadImage ("Gift.png");
+  gift = new Gift(-40,-40, 0, giftImg);
 
   // Sets end screen to cover the whole screen with an image
   end = new End (0, 0, width, height, endscreen);
@@ -181,6 +190,10 @@ void draw() {
     fly[i].mouseClicked();
     fly[i].update();
   }
+  
+  gift.display();
+  gift.update();
+  gift.life();
 }
 
 // mouseClicked triggers the image change for the Chiyo and flyFall function
@@ -188,7 +201,6 @@ void mouseClicked() {
   catTarget.mouseClicked();
   flyFall();
 }
-
 // This function calls a random image to be assigned to the chiyo on every click
 // Also resets it to the mouse's position
 // Made a separate function for easier editing

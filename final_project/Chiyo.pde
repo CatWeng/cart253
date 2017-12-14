@@ -15,6 +15,7 @@ class Chiyo {
     y = _y;
     img = _img;
   }
+  
 // Displays the chiyo image in the location assigned to it 
   void display() {
     image(img, x, y);
