@@ -36,6 +36,8 @@ int gridWidth = 500;
 // Set up arrays for the images to run through and chiyos to draw
 PImage[] images = new PImage[numImages];
 Chiyo[] chiyos = new Chiyo[numChiyo];
+// Set up flies
+Fly fly; 
 
 // Sets up two chiyos, one on the side to act as an objective
 // And one hidden with the rest of the Chiyos to be found
@@ -54,12 +56,15 @@ PImage targetFound2;
 PImage target3;
 PImage targetFound3;
 
-//Sets up an end screen so tha player can win or lose the game
+// Sets up an end screen so tha player can win or lose the game
 End end;
 PImage endscreen;
 
-//Variable for background image
+// Variable for background image
 PImage BG;
+
+// Variable for the fly images
+PImage flyImg;
 
 // SETUP
 void setup() {
@@ -73,7 +78,7 @@ void setup() {
   // Loading and resizing background image
   BG = loadImage ("ChiyoBG.jpg");
   BG.resize(640, 480);
-  
+
   // Loading in sound files
   meow = new SoundFile(this, "Meow.mp3");
   hiss = new SoundFile(this, "Hiss.mp3");
@@ -95,6 +100,11 @@ void setup() {
   catTarget2 = new Target (width-110, 150, 100, target2);
   catIcon3 = new Target ((int) random(0, gridWidth-targetSize), (int) random(0, height-targetSize), targetSize, target3);
   catTarget3 = new Target (width-110, 230, 100, target3);
+
+  // Generates a new 'Fly' which is a chiyo that spawns on mouse click and falls 
+  // A random image is chosen each time 
+  flyImg = loadImage ((int)random(0, numImages)+".png");
+  fly = new Fly(-400, -400, 3, 2, flyImg);
 
   // Sets end screen to cover the whole screen with an image
   end = new End (0, 0, width, height, endscreen);
@@ -161,9 +171,23 @@ void draw() {
   // Triggers end when one of the end screen's condition is met
   end.win();
   end.lose();
+
+  // On mouse click triggers a falling Chiyo fly 
+  // They all start at the same velocity then speed up as if there's gravity
+  fly.mouseClicked();
+  fly.update();
 }
 
-// mouseClicked triggers the image change for the Chiyo
+// mouseClicked triggers the image change for the Chiyo and flyFall function
 void mouseClicked() {
   catTarget.mouseClicked();
+  flyFall();
+}
+
+// This function calls a random image to be assigned to the chiyo on every click
+// Also resets it to the mouse's position
+void flyFall() {
+  flyImg = loadImage ((int)random(0, numImages)+".png");
+  fly.x = mouseX;
+  fly.y = mouseY;
 }

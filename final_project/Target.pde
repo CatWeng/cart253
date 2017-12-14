@@ -62,7 +62,9 @@ class Target {
         meow.play();
         clicked3 = true;
       }
-    } else if (mouseX >= 480) {
+    } 
+    // Prevents the player from losing points when clicking outside the chiyo field
+    else if (mouseX >= 480) {
       
     } else {
       lives -= 1;
