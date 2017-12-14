@@ -16,8 +16,9 @@ SoundFile cry;
 int lives=5;
 //Second score keeper, when player has found all chiyos it triggers a win
 int win=0;
-// This variable sets the number of Chiyos to be drawn on screen
+// These variables set the number of Chiyos to be drawn on screen
 int numChiyo = 500;
+int numFly = 15;
 // This variable calls which Chiyos to be drawn by name/number
 int numImages = 35;
 // Set a grid for even Chiyo distribution
@@ -37,7 +38,7 @@ int gridWidth = 500;
 PImage[] images = new PImage[numImages];
 Chiyo[] chiyos = new Chiyo[numChiyo];
 // Set up flies
-Fly fly; 
+Fly[] fly = new Fly[numFly]; 
 
 // Sets up two chiyos, one on the side to act as an objective
 // And one hidden with the rest of the Chiyos to be found
@@ -101,10 +102,12 @@ void setup() {
   catIcon3 = new Target ((int) random(0, gridWidth-targetSize), (int) random(0, height-targetSize), targetSize, target3);
   catTarget3 = new Target (width-110, 230, 100, target3);
 
-  // Generates a new 'Fly' which is a chiyo that spawns on mouse click and falls 
+  // Generates 15 'Fly' offscreen which is are chiyos that spawn on mouse click and fall
   // A random image is chosen each time 
-  flyImg = loadImage ((int)random(0, numImages)+".png");
-  fly = new Fly(-400, -400, 3, 2, flyImg);
+  for (int i = 0; i < fly.length; i++) {
+    flyImg = loadImage ((int)random(0, numImages)+".png");
+    fly[i] = new Fly(-200, -200, 3, 3, images[int(random(0, images.length))]);
+  }
 
   // Sets end screen to cover the whole screen with an image
   end = new End (0, 0, width, height, endscreen);
@@ -172,10 +175,12 @@ void draw() {
   end.win();
   end.lose();
 
-  // On mouse click triggers a falling Chiyo fly 
-  // They all start at the same velocity then speed up as if there's gravity
-  fly.mouseClicked();
-  fly.update();
+  // On mouse click triggers a falling Chiyo flies 
+  // They all start at the same velocity then speed up and spread out
+  for (int i = 0; i < fly.length; i++) {
+    fly[i].mouseClicked();
+    fly[i].update();
+  }
 }
 
 // mouseClicked triggers the image change for the Chiyo and flyFall function
@@ -186,8 +191,10 @@ void mouseClicked() {
 
 // This function calls a random image to be assigned to the chiyo on every click
 // Also resets it to the mouse's position
+// Made a separate function for easier editing
 void flyFall() {
-  flyImg = loadImage ((int)random(0, numImages)+".png");
-  fly.x = mouseX;
-  fly.y = mouseY;
+  for (int i = 0; i < fly.length; i++) {
+    fly[i].x = mouseX + (int)random(-100, 100);
+    fly[i].y = mouseY + (int)random(-150, 50);
+  }
 }
